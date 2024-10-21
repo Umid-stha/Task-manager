@@ -1,0 +1,15 @@
+POST http://127.0.0.1:8000/login
+content-type: application/json
+
+{ "username": "umid", "password": "Pass1234@" }
+
+###
+
+POST http://127.0.0.1:8000/signup
+content-type: application/json
+
+{ "username": "umid", "password": "Pass1234@" , "email": "shresthaumidccc@gmail.com"}
+
+GET http://127.0.0.1:8000/test
+content-type: application/json
+
