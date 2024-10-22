@@ -10,6 +10,10 @@ content-type: application/json
 
 { "username": "umid", "password": "Pass1234@" , "email": "shresthaumidccc@gmail.com"}
 
+
+###
 GET http://127.0.0.1:8000/test
 content-type: application/json
+Authorization: Token 95e94150f868486bd496955b28a24a79d4c26635
 
+{}

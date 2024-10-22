@@ -1,14 +1,22 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .models import Task
 from .serializers import TaskSerializer, UserSerializer
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['POST'])
 def login(request):
-    return Response({})
+    user=get_object_or_404(User, username=request.data['username'])
+    if not user.check_password(request.data['password']):
+        return Response({"detail": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
+    token, created = Token.objects.get_or_create(user=user)
+    serializer = UserSerializer(user)
+    return Response({"token":token.key, "user":serializer.data})
 
 @api_view(['POST'])
 def signup(request):
@@ -23,12 +31,49 @@ def signup(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def test(request):
-    return Response({})
+    return Response("passed for {}".format(request.user.email))
+
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getTasks(request):
-    task = Task.objects.all()
-    tasks = TaskSerializer(task, many=True)
-    return Response(tasks.data, status=status.HTTP_200_OK)
+    task = Task.objects.get(user = request.user)
+    if task:
+        tasks = TaskSerializer(task, many=True)
+        return Response(tasks.data, status=status.HTTP_200_OK)
+    return Response("No tasks yet!")
 
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def createTask(request):
+    request.data['user']=request.user
+    task = TaskSerializer(request.data)
+    if task.is_valid():
+        task.save()
+        return Response(task.data, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def getTask(request, id):
+    task = Task.objects.get(id=id)
+    if request.method=='GET':
+        serializer = TaskSerializer(task)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method=='PUT':
+        request.data['user']=request.user
+        task = TaskSerializer(request.data)
+        if task.is_valid():
+            task.save()
+            return Response(task.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    if request.method=='DELETE':
+        task.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
+    return Response(status=status.HTTP_404_NOT_FOUND)
