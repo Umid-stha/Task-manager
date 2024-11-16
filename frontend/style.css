@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #7c42b7;
+    --primary-color: #f95c2c;
     --secondary-color: #FFFFFF; 
     --background-color: #F4F3F8; 
-    --text-color: #333333; 
-    --accent-color: #B57EDC; 
+    --text-color: #000000; 
+    --accent-color: #ed794f; 
     --padding-small: 8px;
     --padding-medium: 16px;
     --padding-large: 24px;
@@ -13,13 +13,36 @@
   body {
     background-color: var(--background-color);
     color: var(--text-color);
+    font-family: Arial, Helvetica, sans-serif;
   }
-  
+
+  .accent{
+    color: var(--accent-color)
+  }
+
+  h1{
+    margin:0px;
+  }
+
   .task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: var(--secondary-color);
     border-radius: 20px;
     height: 230px;
     width: 190px;
+    padding: var(--padding-medium);
+    box-shadow: var(--box-shadow);
+    color: var(--text-color);
+  }
+  .completed-task-card{
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    width:80%;
+    height: 40px;
+    margin: 20px;
     padding: var(--padding-medium);
     box-shadow: var(--box-shadow);
     color: var(--text-color);
@@ -36,15 +59,42 @@
     height: 2.2rem;
     width: 4.2rem;
     border: none;
+    cursor: pointer;
   }
-  
+
+label{
+  margin: 5px 10px 5px 10px;
+  font-weight: 500;
+}
+
+.login-input-field{
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px black solid;
+  margin : 0px 5px 0px 5px;
+}
+
+.button-flex{
+  width: 100%;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-login{
+  text-align: center;
+  margin-top: 15px;
+  width: 100px
+}
+
   button:hover {
     background-color: var(--accent-color);
   }
   
 nav{
     display: flex;
-    padding: 5px 30px;
+    padding: 20px 30px;
     justify-content: space-between;
     align-items: center;
 }
@@ -79,6 +129,65 @@ nav h1{
     border: none;
 }
 
+.main {
+  transition: filter 0.3s ease;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.login-modal {
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  width: 18rem;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.login-modal h2{
+  text-align: center;
+  font-weight: 800;
+  font-size: 30px;
+  margin: 0px 0px 5px 0px;
+  padding: 10px
+}
+.login-modal small{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.login-modal small a{
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.login-modal small a:hover{
+  color: var(--accent-color)
+}
+.login-input{
+  margin: 10px 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main.blur {
+  filter: blur(5px);
+}
 
 span{
     size: 16px;
@@ -95,4 +204,91 @@ main{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.section2{
+  margin-left: 20px;
+}
+
+h3{
+  text-align: center;
+  font-weight: 800;
+  margin: 0px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.addTask{
+  width: 80%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: var(--padding-medium);
+  position: relative;
+}
+
+.addTask span{
+  background-color: #FFFFFF;
+  height: 3.2rem;
+  width: 150px;
+  display: flex;
+  font-size: larger;
+  font-weight: 700;
+  align-items: center;
+  padding-left: 20px;
+  border-radius: 50px;
+  position: absolute;
+  box-shadow: var(--box-shadow);
+  z-index: 0;
+  opacity: 0; /* Start hidden */
+  transform: translateX(-10px); /* Slight shift to the left */
+  transition: opacity 0.6s ease, transform 0.6s ease; 
+}
+
+.add-task{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding:var(--padding-medium);
+  border-radius: 100%;
+  height: 3.2rem;
+  width: 3.2rem;
+  border: none;
+  cursor: pointer;
+  font-size: xx-large;
+  z-index: 1;
+}
+
+.add-task:hover + span {
+  opacity: 1; /* Fade in */
+  transform: translateX(0);
+  z-index: 1; 
+}
+
+.complete-btn{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding:var(--padding-medium);
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+small{
+  font-size: 12px;
+}
+
+a{
+  text-decoration: none;
 }
