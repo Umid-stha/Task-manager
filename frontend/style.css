@@ -67,30 +67,9 @@ label{
   font-weight: 500;
 }
 
-.login-input-field{
-  height: auto;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px black solid;
-  margin : 0px 5px 0px 5px;
-}
-
-.button-flex{
-  width: 100%;
-  display : flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-login{
-  text-align: center;
-  margin-top: 15px;
-  width: 100px
-}
-
-  button:hover {
+button:hover {
     background-color: var(--accent-color);
-  }
+}
   
 nav{
     display: flex;
@@ -143,46 +122,89 @@ nav h1{
   display: none;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .modal-overlay.active {
   display: flex;
 }
 
-.login-modal {
+.modal {
   display: flex;
   flex-direction: column;
-  height: 20rem;
-  width: 18rem;
   background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.login-modal h2{
+
+.modal--login {
+  height: 21rem;
+  width: 18rem;
+}
+
+.modal--signup {
+  height: 26rem;
+  width: 18rem;
+}
+
+.modal h2 {
   text-align: center;
   font-weight: 800;
   font-size: 30px;
   margin: 0px 0px 5px 0px;
-  padding: 10px
+  padding: 10px;
 }
-.login-modal small{
+
+.modal small {
   margin-top: 10px;
   text-align: center;
 }
 
-.login-modal small a{
+.modal small p {
   color: var(--primary-color);
   text-decoration: underline;
   cursor: pointer;
 }
-.login-modal small a:hover{
-  color: var(--accent-color)
+
+.modal small p:hover {
+  color: var(--accent-color);
 }
-.login-input{
+
+.modal__input-group {
   margin: 10px 5px;
   display: flex;
   flex-direction: column;
+}
+
+.modal__input-field {
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid black;
+  margin: 0 5px;
+}
+
+.button-flex {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__action-btn {
+  text-align: center;
+  margin-top: 15px;
+  width: 110px;
+  cursor: pointer;
+}
+
+.modal--login .modal__action-btn {
+  width: 100px; /* Specific width for login button */
+}
+
+.modal__action-btn:hover {
+  background-color: var(--accent-color);
 }
 
 .main.blur {
