@@ -80,9 +80,30 @@ if (target.classList.contains('modal-action')) {
   const action = target.dataset.action;
   console.log(`${action} button clicked!`);
   if(action == "signup"){
+
     const email = document.getElementById("signup-email").value
     const username = document.getElementById("signup-email").value
     const password = document.getElementById("signup-email").value
+    if(password.length <= 8){
+      alert("Password needs to be greater than 8 character")
+    }
+    else{
+      fetch(URL + action, {
+        method:"POST",
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+           "username": username, 
+           "password": password, 
+           "email": email
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error creating data:', error))
+    }
+   
   }
 }
 });
