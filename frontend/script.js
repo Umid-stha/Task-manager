@@ -1,3 +1,5 @@
+const URL = "https://probable-system-6jjvpq64g4wf5q99-8000.app.github.dev/"
+
 const modalOverlay = document.querySelector('.modal-overlay');
 const contentContainer = document.querySelector('.main');
 const loginModalHtml = `
@@ -74,11 +76,40 @@ modalOverlay.addEventListener('click', (e) => {
     }
 }
 
-// Handle modal action buttons (if needed)
 if (target.classList.contains('modal-action')) {
   const action = target.dataset.action;
   console.log(`${action} button clicked!`);
-  // Add form submission logic here if needed
+  if(action == "signup"){
+    const email = document.getElementById("signup-email").value
+    const username = document.getElementById("signup-email").value
+    const password = document.getElementById("signup-email").value
+  }
 }
 });
 
+// Add task logics
+
+const taskButton = document.querySelector(".add-task")
+const modalOverlayAddTask = document.querySelector('.modal-overlay-add-task');
+
+function openModalForTask() {
+  modalOverlayAddTask.classList.add('active');
+  contentContainer.classList.add('blur');
+}
+
+function closeModalForTask() {
+  modalOverlayAddTask.classList.remove('active');
+  contentContainer.classList.remove('blur');
+}
+
+taskButton.addEventListener("click", () => {
+  openModalForTask()
+})
+
+modalOverlayAddTask.addEventListener("click", (e)=> {
+  target = e.target
+  console.log(target)
+  if (target === modalOverlayAddTask) {
+    closeModalForTask();
+  }
+})

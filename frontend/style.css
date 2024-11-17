@@ -314,3 +314,51 @@ small{
 a{
   text-decoration: none;
 }
+
+.modal-overlay-add-task {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay-add-task.active {
+  display: flex;
+}
+
+.modal-add-task{
+  width: 28rem;
+}
+.modal-field {
+  margin: 10px 0px;
+}
+
+.add-task-input{
+  height: auto;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid black;
+  margin: 0 5px;
+}
+
+#title-input{
+  width:22rem
+}
+
+#description-input{
+  height: max-content;
+  width:26rem;
+  margin-top: 8px;
+  min-height: 5rem;
+  vertical-align: top;
+  resize: vertical;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.5;
+}
